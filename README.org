@@ -1,0 +1,7 @@
+* misc
+A collection of unremarkable or dead projects.
+Here for convenience/archival purposes. 
+Start exploring!
+
+** License
+[[file:LICENSE][GNU General Public License Version 3]]

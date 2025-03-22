@@ -1,0 +1,5 @@
+* CompliMathGen
+A webpage made for generating complicated mathematical expressions in PDF format. Meant to imitate the numerical input questions found on the UIL Calculator Applications contest.
+Built to run completely in the browser.
+
+[[file:sample.pdf][Sample PDF]]

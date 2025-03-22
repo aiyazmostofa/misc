@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CompliMathGen</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        MathJax.Hub.Config({
+            jax: ["input/TeX", "output/SVG"],
+        });
+    </script>
+    <script src="generator.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="screen">
+    <h1>CompliMathGen</h1>
+    <p>
+        Click the button below to print a 40 question worksheet.
+        The preview is likely messed up, so don't worry about it.
+        Make sure you disable Headers and footers.
+        Make sure you enable Background graphics (Chrome) or Print background (Firefox).
+        This has only been tested on desktop Chrome and Firefox.
+        If you don't want to print it, but instead want a PDF, switch the printer to "Save as PDF" or something similar.
+    </p>
+    <h2>Chrome</h2>
+    <p>
+        On Chrome, if the preview just has no equations, the webpage resources haven't loaded.
+        The way to fix this is to keep clicking the Generate button until the preview has equations showing up.
+    </p>
+    <label for="quantity"># of Questions </label><input type="number" id="quantity" min="15" max="600" value="40">
+    <button onclick="printWorksheet()">Generate</button>
+</div>
+<div id="print" class="print"></div>
+</body>
+</html>
