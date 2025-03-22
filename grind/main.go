@@ -90,7 +90,7 @@ func main() {
 		return filteredProblems[i].Index < filteredProblems[j].Index
 	})
 	file, err := os.Create("grind.html")
-	file.Chmod(0755)
+	// file.Chmod(0755)
 	if err != nil {
 		panic(err)
 	}
