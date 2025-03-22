@@ -1,0 +1,45 @@
+---
+import renderDate from "../renderDate";
+
+const { title, category, date, slug } = Astro.props;
+---
+
+<a href={slug}>
+    <div>
+        <h3>{title}</h3>
+        <p class="italic">{category}</p>
+        <p>{renderDate(date)}</p>
+    </div>
+</a>
+
+<style>
+    a,
+    a:hover,
+    a:active {
+        text-decoration: none;
+        display: block;
+        margin: 1em 0;
+    }
+
+    div {
+        border-style: solid;
+        border-width: 1px;
+        padding: 0.5em 1em;
+        transition:
+            background-color 100ms,
+            transform 100ms;
+        box-shadow:
+            0 4px 8px 0 rgba(0, 0, 0, 0.2),
+            0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    div:hover {
+        background-color: #686f9a10;
+        transform: scale(1.01);
+    }
+
+    div:active {
+        background-color: #686f9a20;
+        transform: scale(1.02);
+    }
+</style>

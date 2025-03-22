@@ -1,0 +1,50 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Card from "../components/Card.astro";
+import { getCollection } from "astro:content";
+export const getStaticPaths = (async ({paginate}) => {
+    const blog = await getCollection("blog");
+    blog.sort((a, b) => {
+        return b.id.toString().localeCompare(a.id.toString());
+    });
+    return paginate(blog, {pageSize: 7});
+}) satisfies GetStaticPaths;
+
+const {page} = Astro.props
+---
+
+<BaseLayout title="AyazMost's Blog">
+    <h2>Posts</h2>
+    {
+        page.data.map((entry) => {
+            let slug = entry.id.toString();
+            slug = slug.substring(0, slug.length - 3);
+            return (
+                <Card
+                    title={entry.data.title}
+                    category={entry.data.category}
+                    date={entry.data.date}
+                    slug={slug}
+                />
+            );
+        })
+    }
+    <div>
+        {page.url.prev ? <p><a href={page.url.prev}>&lt;</a></p> : <p style="visibility:hidden;">&lt;</p>}
+        <p>{page.currentPage}</p>
+        {page.url.next ? <p><a href={page.url.next}>&gt;</a></p> : <p style="visibility:hidden;">&gt;</p>}
+    </div>
+</BaseLayout>
+
+<style>
+    div {
+        display: flex;
+        gap: 1.5em;
+        justify-content: center;
+        align-items:center;
+    }
+    div p a {
+        text-decoration: none;
+    }
+</style>

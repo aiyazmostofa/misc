@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&family=JetBrains+Mono&display=swap');
+
+a {
+    color: #ecf0c1;
+}
+
+body {
+    font-family: 'IBM Plex Serif', serif;
+    color: #ecf0c1;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+.italic {
+    font-style: italic;
+}
+
+code {
+    font-family: "JetBrains Mono", monospace;
+}
+
+pre {
+    font-size: 1.25rem;
+    padding: 1rem;
+    border-style: solid;
+    border-color: #ecf0c1;
+    border-width: 1px;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.katex-display>.katex {
+    white-space: normal
+}

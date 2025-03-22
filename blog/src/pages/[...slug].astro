@@ -1,0 +1,37 @@
+---
+import type { GetStaticPaths } from "astro";
+import renderDate from "../renderDate";
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+export const getStaticPaths = (async () => {
+    const blog = await getCollection("blog");
+    return blog.map((entry) => {
+        let slug = entry.id.toString();
+        slug = slug.substring(0, slug.length - 3);
+        return {
+            params: { slug: slug },
+            props: { entry },
+        };
+    });
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title}>
+    <div></div>
+    <h3>{entry.data.title}</h3>
+    <p class="italic">{entry.data.category}</p>
+    <p>{renderDate(entry.data.date)}</p>
+    <div></div>
+    <Content />
+</BaseLayout>
+
+<style>
+    div {
+        height: 1px;
+        background-color: #ecf0c1;
+        margin: 2em 0;
+    }
+</style>

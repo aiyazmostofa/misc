@@ -1,0 +1,39 @@
+---
+
+---
+
+<div>
+    <div></div>
+</div>
+
+<style>
+    @keyframes rotating {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    div div {
+        position: fixed;
+        z-index: -1;
+        width: 300vw;
+        height: 300vh;
+        left: -100vw;
+        top: -100vh;
+        --s: 60px; /* control the size */
+        --c1: #18192f;
+        --c2: #16172d;
+        --c: #0000 71%, var(--c1) 0 79%, #0000 0;
+        --_s: calc(var(--s) / 2) / calc(2 * var(--s)) calc(2 * var(--s));
+        background:
+            linear-gradient(45deg, var(--c)) calc(var(--s) / -2) var(--_s),
+            linear-gradient(135deg, var(--c)) calc(var(--s) / 2) var(--_s),
+            radial-gradient(var(--c1) 35%, var(--c2) 37%) 0 0 / var(--s)
+                var(--s);
+        animation: rotating 120s linear infinite;
+    }
+</style>
