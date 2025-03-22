@@ -1,0 +1,224 @@
+/* CSS Reset Start */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, picture, svg, video {
+    display: block;
+    max-width: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+/* CSS Reset End */
+
+/* General Styling Start */
+:root {
+  --bg-front-color:  #FEEDDC;
+  --bg-back-color: #CBBAA9;
+  --foreground-color: black;
+  --secondary-color: #FF4301;
+  --primary-color: #FA7D09;
+  --red: #dc3545;
+  --green: #198754;
+}
+
+a,a:visited {
+    color: var(--secondary-color);
+}
+
+a:active {
+    color: var(--primary-color);
+}
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--foreground-color);
+    background-color: var(--bg-back-color);
+    line-height: 1.6;
+    font-size: clamp(1rem, 1.8vw, 1.125em);
+    display: flex;
+    min-height: 100vh;
+    min-height: 100svh;
+    flex-direction: column;
+}
+
+main {
+    margin-inline: auto;
+    background-color: var(--bg-front-color);
+    flex-grow: 1;
+    padding: 0.5em 1em;
+    width: 1100px;
+}
+
+@media (max-width: 1100px) {
+    main {
+        width: 100%;
+    }
+}
+
+article > *, .center > * {
+    margin-block-start: 1em;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.17rem;
+}
+
+ul {
+    list-style: disc;
+    list-style-position: inside;
+}
+
+input[type=text], input[type=password] {
+    background-color: var(--bg-front-color);
+    color: var(--foreground-color);
+    border-style: solid;
+    border-color: var(--bg-back-color);
+    padding: 0.125em 0.25em;
+    border-radius: 0.35em;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+input[type=submit] {
+    border-style: none;
+    padding: 0.125em 0.5em;
+    border-radius: 0.35em;
+    background-color: var(--primary-color);
+    color: var(--bg-front-color);
+}
+
+input[type=submit]:hover {
+    background-color: var(--secondary-color);
+}
+
+input {
+    display: block;
+}
+
+form > *:not(:first-child) {
+    margin-top: 0.5em;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+td, th {
+    padding: 0.5em;
+}
+
+tr:first-child {
+    border-bottom: 1pt var(--bg-back-color) solid;
+}
+
+.red {
+    color: #f00;
+}
+
+.subtle {
+    font-size: 75%;
+    color: #987;
+}
+
+.pagination {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.wipe {
+    margin: 0;
+    padding: 0;
+}
+
+/* General Styling End */
+
+/* Header Styling Start */
+.navbar {
+    text-align: center;
+}
+
+.navbar__list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    gap: 0.5em;
+}
+
+.navbar__list-item > a, .navbar__list-item > a:hover, .navbar__list-item > a:active {
+    color: var(--bg-front-color);
+}
+
+.navbar__list-item > a {
+    display: block;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    padding: 0.2em 0em;
+    width: 100%;
+}
+
+input[type=text], input[type=password], input[type=submit], a {
+    transition-property: background-color border-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.navbar__list-item {
+    width: 100%;
+    text-align: center;
+}
+
+.navbar__list-item > a:hover {
+    background-color: var(--secondary-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 0.5em 0;
+}
+
+.logo__name {
+    font-size: clamp(0px, 5.625vw, 3.5rem);
+    font-family: 'Bebas Neue', sans-serif;
+    flex: 6;
+}
+
+.logo__image, .logo__blank {
+    flex: 1;
+}
+
+.logo__image > svg {
+    width: 100%;
+    height: 100%;
+}
+/* Header Styling End */

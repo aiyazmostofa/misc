@@ -1,0 +1,19 @@
+{{ define "login"}}
+{{ template "header" . }}
+<div class="center">
+  <div>
+    <h1>Login</h1>
+    <form method="POST">
+      <span style="display:block;">Username:</span>
+      <input type="text" name="username" />
+      <span style="display:block;">Password:</span>
+      <input type="password" name="password" />
+      <input style="width: 100%;" type="submit" value="Login">
+    </form>
+  </div>
+  {{ if .Error }}
+  <p style="color: var(--red)">{{ .Error }}</p>
+  {{ end }}
+</div>
+{{ template "footer" . }}
+{{ end }}

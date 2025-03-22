@@ -1,0 +1,70 @@
+{{ define "submission_row" }}
+{{ if eq .Status "TBD" }}
+{{ if eq .Username "" }}
+<tr hx-get="/submissions/row/{{.ID}}?exclude=1" hx-swap="outerHTML" hx-trigger="every 2s">
+{{ else }}
+<tr hx-get="/submissions/row/{{.ID}}" hx-swap="outerHTML" hx-trigger="every 2s">
+{{ end }}
+{{ else }}
+<tr>
+{{ end }}
+  <td><a href="/submissions/{{.ID}}">{{.ID}}</a></td>
+  {{ if .Username }}
+  <td><a href="/accounts/{{.Username}}">{{.Username}}</a></td>
+  {{ end }}
+  <td><a href="/problems/{{.ProblemID}}">{{.ProblemTitle}}</a></td>
+  <td><a href="/packets/{{.PacketID}}">{{.PacketTitle}}</a></td>
+  <td>{{.SubmittedAt.Format "03:04:05 - Jan 2, 2006 MST"}}</td>
+  <td>
+    {{ if eq .Status "Accepted" }}
+    <i class="fa-solid fa-check" title="{{.Status}}" style="color:var(--green);"></i>
+    {{ else if eq .Status "Wrong Answer" }}
+    <i class="fa-solid fa-x" title="{{.Status}}" style="color:var(--red);"></i>
+    {{ else if eq .Status "Time Limit Exceeded" }}
+    <i class="fa-solid fa-clock" title="{{.Status}}" style="color:var(--red);"></i>
+    {{ else if eq .Status "Runtime Error" }}
+    <i class="fa-solid fa-bug" title="{{.Status}}" style="color:var(--red);"></i>
+    {{ else if eq .Status "Compile Time Error" }}
+    <i class="fa-solid fa-bug" title="{{.Status}}" style="color:var(--red);"></i>
+    {{ else }}
+    <i class="fas fa-circle-notch fa-spin" title="{{.Status}}" style="color:var(--secondary-color);"></i>
+    {{ end }}
+  </td>
+</tr>
+{{ end }}
+
+{{ define "submission_row_handler" }}
+{{ template "submission_row" .Submission }}
+{{ end }}
+
+{{ define "submissions" }}
+{{ template "header" . }}
+<h1>Submissions</h1>
+<table>
+  <tr>
+    <th>#</th>
+    <th>User</th>
+    <th>Problem</th>
+    <th>Packet</th>
+    <th>Time</th>
+    <th>Status</th>
+  </tr>
+  {{ range .Submissions }}
+  {{ template "submission_row" . }}
+  {{ end }}
+</table>
+<div class="pagination">
+  {{ if not (eq .Before -1) }}
+  <a href="/submissions?offset={{.Before}}">Back</a>
+  {{ else }}
+  <div></div>
+  {{ end }}
+  
+  {{ if not (eq .After -1) }}
+  <a href="/submissions?offset={{.After}}">Next</a>
+  {{ else }}
+  <div></div>
+  {{ end }}
+</div>
+{{ template "footer" . }}
+{{ end }}

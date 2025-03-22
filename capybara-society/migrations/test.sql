@@ -1,0 +1,10 @@
+INSERT INTO users (username, password, email, auth_level) VALUES ('test', '$2a$10$ZYR2ri7pi3.irQ8GZ1fGEOBo1P54RoqzxLXcvIb4rOjkdWge2r2A.', 'email@email.com', 'Admin');
+INSERT INTO packets (title, zip) VALUES ('2023 USACO Plastic June', 0);
+INSERT INTO problems (title, input_file_name, packet_id) VALUES ('Mr. Cowgill', 'cowgill.dat', 1);
+INSERT INTO problems (title, input_file_name, packet_id) VALUES ('Farmer Hulett', 'hulett.dat', 1);
+INSERT INTO problems (title, input_file_name, packet_id) VALUES ('Chinmay''s Hinge', 'chinmay.dat', 1);
+INSERT INTO submissions (code_file_name, submitted_at, status, problem_id, user_id) VALUES ('main.java', 1000, 'Wrong Answer', 1, 1);
+INSERT INTO submissions (code_file_name, submitted_at, status, problem_id, user_id) VALUES ('main.java', 2000, 'Accepted', 1, 1);
+INSERT INTO submissions (code_file_name, submitted_at, status, problem_id, user_id) VALUES ('main.java', 3000, 'Wrong Answer', 2, 1);
+INSERT INTO submissions (code_file_name, submitted_at, status, problem_id, user_id) VALUES ('main.java', 4000, 'Accepted', 2, 1);
+INSERT INTO submissions (code_file_name, submitted_at, status, problem_id, user_id) VALUES ('main.java', 5000, 'Accepted', 3, 1);

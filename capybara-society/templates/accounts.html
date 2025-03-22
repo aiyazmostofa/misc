@@ -1,0 +1,57 @@
+{{ define "account" }}
+{{ template "header" . }}
+{{ if or (not .User) (ne .Account.Username .User.Username)}}
+<h1>{{ .Account.Username }}</h1>
+<p>Position: {{ .Account.AuthLevel }}</p>
+<p>Problems Solved: {{ .ProblemsSolved }}</p>
+{{ else }}
+<h1>{{ .Account.Username }}</h1>
+<p>Position: {{ .Account.AuthLevel }}</p>
+<p>Email: {{ .Account.Email }}</p>
+<p>Problems Solved: {{ .ProblemsSolved }}</p>
+<p><a href="{{ .Account.Username }}/edit">Edit Account</a></p>
+<p><a href="/signout">Sign Out</a></p>
+{{ end }}
+<h2>Recent Submissions</h2>
+<table>
+  <tr>
+    <th>#</th>
+    <th>Problem</th>
+    <th>Packet</th>
+    <th>Time</th>
+    <th>Status</th>
+  </tr>
+  {{ range .Submissions }}
+  {{ template "submission_row" . }}
+  {{ end }}
+</table>
+<p><a href="/submissions?username={{ .Account.Username }}">View All Submissions</p>
+{{ template "footer" . }}
+{{ end }}
+
+{{ define "account_edit" }}
+{{ template "header" . }}
+<div class="center">
+  <div>
+    <h1>Edit</h1>
+    <form method="POST">
+      <span style="display:block;">Username:</span>
+      <input type="text" name="username" value="{{ .User.Username }}"/>
+      <span style="display:block;">Email:</span>
+      <input type="text" name="email" value="{{ .User.Email }}"/>
+      <span style="display:block;">New Password:</span>
+      <input type="password" name="new_password" />
+      <span class="subtle">Leave blank if no change</span>
+      <span style="display:block;">Current Password:</span>
+      <input type="password" name="current_password" />
+      <span class="subtle">Required</span>
+      <input style="width: 100%;" type="submit" value="Edit">
+    </form>
+  </div>
+    <p><a href="/accounts/{{ .User.Username }}">Go Back</a></p>
+  {{ if .Error }}
+  <p style="color: var(--red)">{{ .Error }}</p>
+  {{ end }}
+</div>
+{{ template "footer" . }}
+{{ end }}

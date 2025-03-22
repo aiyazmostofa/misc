@@ -1,0 +1,20 @@
+{{ define "invitations"}}
+{{ template "header" . }}
+<div class="center">
+  <div>
+    <h1>Invitation</h1>
+    <p>You've been invited to sign up.</p>
+    <form method="POST">
+      <span style="display:block;">Username:</span>
+      <input type="text" name="username" />
+      <span style="display:block;">Password:</span>
+      <input type="password" name="password" />
+      <input style="width: 100%;" type="submit" value="Sign Up">
+      {{ if .Error }}
+      <span style="color: #f99;">{{ .Error }}</span>
+      {{ end }}
+    </form>
+  </div>
+</div>
+{{ template "footer" . }}
+{{ end }}

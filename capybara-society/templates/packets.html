@@ -1,0 +1,45 @@
+{{ define "packets"}}
+{{ template "header" . }}
+<h1>Packets</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Completed</th>
+  </tr>
+  {{ range .Packets }}
+  <tr>
+    <td><a href="/packets/{{.ID}}">{{ .Title }}</a></td>
+    <td>{{ .ProblemSolved }}/{{ .ProblemCount }}</td>
+  </tr>
+  {{ end }}
+</table>
+{{ template "footer" . }}
+{{ end }}
+
+{{ define "packet"}}
+{{ template "header" . }}
+<h1>{{.Packet.Title}}</h1>
+{{ if .Packet.Zip }}
+<p><a href="/packet/{{.Packet.ID}}/zip">Sample Data</a></p>
+{{ end }}
+<h2>Problems</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+  </tr>
+  {{ range .Problems }}
+  <tr>
+    <td><a href="/problems/{{.ID}}">{{ .Title }}</a></td>
+    {{if .AcceptedSubmissions}}
+    <td><i class="fa-solid fa-check" style="color:var(--green);"></i></td>
+    {{else if .TotalSubmissions}}
+    <td><i class="fa-solid fa-x" style="color:var(--red);"></i></td>
+    {{else}}
+    <td><i class="fa-solid fa-minus"></i></td>
+    {{end}}
+  </tr>
+  {{ end }}
+</table>
+{{ template "footer" . }}
+{{ end }}

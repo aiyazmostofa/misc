@@ -1,0 +1,41 @@
+CREATE TABLE users (
+    id INTEGER NOT NULL PRIMARY KEY,
+	username TEXT NOT NULL,
+	password TEXT NOT NULL,
+	email TEXT NOT NULL,
+    auth_level TEXT NOT NULL
+);
+
+CREATE TABLE packets (
+	id INTEGER NOT NULL PRIMARY KEY,
+	title TEXT NOT NULL,
+	zip INTEGER NOT NULL
+);
+
+CREATE TABLE problems (
+	id INTEGER NOT NULL PRIMARY KEY,
+	title TEXT NOT NULL,
+	input_file_name TEXT NOT NULL,
+	packet_id INTEGER NOT NULL
+);
+
+CREATE TABLE submissions (
+	id INTEGER NOT NULL PRIMARY KEY,
+	code_file_name TEXT NOT NULL,
+	submitted_at TIMESTAMP NOT NULL,
+	status TEXT NOT NULL,
+	problem_id INTEGER NOT NULL,
+	user_id INTEGER NOT NULL
+);
+
+CREATE TABLE invitations (
+	id INTEGER NOT NULL PRIMARY KEY,
+    token TEXT NOT NULL
+);
+
+CREATE TABLE sessions (
+	id INTEGER NOT NULL PRIMARY KEY,
+    token TEXT NOT NULL,
+    expiration TIMESTAMP NOT NULL,
+	user_id INTEGER NOT NULL
+);
