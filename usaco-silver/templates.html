@@ -1,0 +1,76 @@
+{{ define "header" }}
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {{ if .Title }}
+    <title>{{ .Title }}</title>
+    {{ else }}
+    <title>36 Days of USACO Silver</title>
+    {{ end }}
+    <style>
+      html {
+          color-scheme: dark;
+      }
+      
+      body {
+          font-family: system-ui;
+          font-size: 1.25rem;
+          line-height: 1.5;
+          background-color: #1d2021;
+          color: #ebdbb2;
+      }
+      
+      main {
+          width: min(80ch, 100% - 4rem);
+          margin-inline: auto;
+      }
+      
+      code {
+          border-style: solid;
+          border-radius: 1.25em;
+          border-width: 1px;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/gruvbox-dark-hard.min.css" integrity="sha512-kCMzrI8UyzNgyq0JVxwb17xy9nRVhwyPBSTaRC1hiOCnbMKBv9vII61ZHD4EmHpc+o0o9trcRCRAk6j5vVft8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <main>
+{{ end }}
+
+{{ define "footer" }}
+    </main>
+  </body>
+</html>
+{{ end }}
+
+{{ define "index" }}
+{{ template "header" }}
+<h1>36 Days of USACO Silver</h1>
+<h3>Please support bigredsponge by harassing him on discord until he releases the solution for the day.</h3>
+{{ range . }}
+{{ if .Done }}
+<p>Day {{ .Index }}: <a href="{{ .URL }}">{{ .Title }}</a> - <a href="/solution/{{ .Index }}">My Solution</a></p>
+{{ else }}
+<p>Day {{ .Index }}: <a href="{{ .URL }}">{{ .Title }}</a></p>
+{{ end }}
+{{ end }}
+{{ template "footer" }}
+{{ end }}
+
+{{ define "solution" }}
+{{ template "header" . }}
+<p><a href="/">Go Back</a></p>
+<h1>{{ .Title }}</h1>
+<h2>Explanation</h2>
+{{ .Content }}
+<h2>Code</h2>
+<pre><code class="language-java">{{- .Code -}}</code></pre>
+{{ template "footer" }}
+{{ end }}
