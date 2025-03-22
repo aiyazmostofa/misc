@@ -1,0 +1,6 @@
+* Cargill's Corner
+
+Hey Mr. Cargill.
+Everything is basically in main.ts.
+Styling is in style.css.
+index.html isn't anything interesting.

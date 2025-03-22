@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto Slab', serif;
+}
+
+body {
+  background-color: black;
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game {
+  position: relative;
+  background-color: #013311;
+  width: 1280px;
+  height: 720px;
+  color: white;
+}
+
+.card {
+  position: absolute;
+  transition: top 1s, left 1s, rotate 1s, background-color 0.1s, border-color 0.1s;
+  background-color: white;
+  width: 70px;
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translate(-50%, -50%);
+  transform-origin: top left;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #aaa;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 3px;
+  padding-right: 3px;
+  user-select: none;
+  font-size: 0.7rem;
+}
+
+.card:hover {
+  background-color: #bbbbff;
+  border-color: #bbbbff;
+}
+
+.red {
+  color: red;
+}
+
+.black {
+  color: black;
+}
+
+.concealed {
+  background-color: red;
+  transition: top 1s, left 1s, rotate 1s, background-color 1s;
+  border-width: 4px;
+  border-color: white;
+  color: red;
+}
+
+.select {
+  position: absolute;
+  width: 80px;
+  background-color: #ffbb00aa;
+  height: 80px;
+  transform: translate(-50%, -50%);
+  border-radius: 40px;
+  transition: background-color 0.1s;
+  z-index: -99;
+}
+
+.select:hover {
+  background-color: #ffbb00cc;
+}
+
+#n {
+  top: 260px;
+  left: 640px;
+}
+
+#s {
+  top: 460px;
+  left: 640px;
+}
+
+#e {
+  top: 360px;
+  left: 740px;
+}
+
+#w {
+  top: 360px;
+  left: 540px;
+}
+
+#ne {
+  top: 270px;
+  left: 730px;
+}
+
+#se {
+  top: 450px;
+  left: 730px;
+}
+
+#nw {
+  top: 270px;
+  left: 550px;
+}
+
+#sw {
+  top: 450px;
+  left: 550px;
+}
+
+.button {
+  padding: 0.5em;
+  border-style: none;
+  background-color: orange;
+  transition: background-color 0.1s;
+}
+
+.button:hover {
+  background-color: orangered;
+}
+
+.concealed:hover {
+  background-color: red;
+  border-color: white;
+}
+
+#turn-indicator {
+  position: absolute;
+  transform: translate(-50%);
+  left: 50%;
+  top: 10px;
+}
+
+.button:disabled {
+  background-color: gray;
+  color: black;
+}
+
+.dock {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+#status {
+  left: 50%;
+  top: 10px;
+  transform: translate(-50%);
+}
+
+.card-row {
+  display: flex;
+  justify-content: center;
+}
+
+.card-row>span {
+  line-height: 0.7rem;
+}
+
+.upside-down {
+  transform: rotate(180deg);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.legend>span {
+  line-height: 0.7rem;
+}
+
+.text {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+#winner-card {
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: #663311;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: -100;
+}
