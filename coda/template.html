@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Coda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla-framework-version-4.5.1.min.css" />
+  </head>
+  <body>
+    <main style="width: min(80ch, 100% - 4rem); margin-inline: auto;">
+    <h1>Coda</h1>
+    <h2>Manage</h2>
+    <form method="POST" action="/">
+      <p>
+        <label for="old_id">Old ID</label>
+        <input id="old_id" type="text" name="old_id" value="{{ piece[0] }}">
+      </p>
+
+      <p>
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title" value="{{ piece[1] }}">
+      </p>
+
+      <p>
+        <label for="composer">Composer</label>
+        <input id="composer" type="text" name="composer" value="{{ piece[2] }}">
+      </p>
+
+      <p>
+        <label for="links">Links</label>
+        <textarea id="links" type="text" name="links" rows="10">{{ piece[3] }}</textarea>
+      </p>
+
+      <input type="submit" value="Submit">
+    </form>
+    <h2>List</h2>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Composer</th>
+        <th>Title</th>
+        <th>Done</th>
+        <th>Actions</th>
+      </tr>
+      {% for p in pieces %}
+      <tr>
+        <td>{{ p[0] }}</td>
+        <td>{{ p[2] }}</td>
+        <td>{{ p[1] }}</td>
+        <td>{{ p[4] }}</td>
+        <td>
+            <form id="form" action="/{{ p[0] }}" method="POST" style="display: inline; margin-right: 6px;">
+              <a href="javascript:;" onclick="document.getElementById('form').submit();">Delete</a>
+              <input type="hidden" name="mess"/>
+            </form>
+            <a href="/{{ p[0] }}">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    </main>
+  </body>
+</html>
