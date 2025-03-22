@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper, width=7in, height=9in]{geometry}
+\setcounter{secnumdepth}{-\maxdimen}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily
+}
+\begin{document}
+% Start title page
+\vspace{\fill}
+\begin{center}
+	\begin{huge}
+		\textbf{ {{ .Title }} }
+	\end{huge}
+	
+	\vspace{\fill}
+	{{ .Subtitle }}
+\end{center}
+\vspace{\fill}
+\subsection{General Notes}
+\begin{itemize}
+	\item Do the problems in any order you like.
+	      They do not have to be done in order from 1 to {{ len .Problems }}.
+	\item All the problems have a value of 60 points.
+	\item There is no extraneous input.
+	      All input is exactly as specified in the problem.
+	      Unless specified by the problem, integer inputs will not have leading zeros.
+	      Unless otherwise specified, your program should read to the end of the file.
+	\item Your program should not print extraneous output.
+	      Follow the form exactly as given in the problem.
+	\item A penalty of 5 points will be assessed each time that an incorrect solution is submitted.
+	      This penalty will only be assessed if a solution is ultimately judged as correct.
+\end{itemize}
+\vspace{\fill}
+\subsection{Names of Problems}
+\begin{center}
+	\begin{tabular}{ |c|c| }
+		\hline
+		Number               & Name         \\
+		\hline
+		{{ range $i, $v := .Problems }}
+		Problem {{ .Index }} & {{ .Title }} \\
+		\hline
+		{{ end }}
+	\end{tabular}
+\end{center}
+\vspace{\fill}
+% End title page
+{{ range $i, $v := .Problems }}
+\newpage
+{{ $v.Content }}
+{{ end }}
+\end{document}
