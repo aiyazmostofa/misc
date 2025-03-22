@@ -1,5 +1,5 @@
 * Tinker lISP Compiler (tispc)
-This is the first compiler I ever made that **was used to help me do something**.
+This is the first compiler I ever made that /was used to help me do something/.
 Before, all the stuff I had built was really just messing around.
 However, this was made so that I don't have to write assembly for the toy architecture in our CS 429 class.
 
@@ -16,7 +16,7 @@ First, compile the compiler.
 Second, use the compiler, providing the appopriate arguments.
 
 #+BEGIN_SRC bash
-  java -cp out/ Main input.tkl output.tisp
+  java -cp out/ Main input.tisp output.tk
 #+END_SRC
 
 ** The Language
@@ -38,25 +38,25 @@ Use an IEEE converter.
 Here are some predefined operators.
 
 | Operator | Arguments          | Returns                                                                                                                                         | Example                  |
-| +        | 2 integers         | 1 integer, the sum of the two arguments                                                                                                         | =(+ 1 2) \=> 3=          |
+| +        | 2 integers         | 1 integer, the sum of the two arguments                                                                                                         | =(+ 1 2) => 3=           |
 | -        | 2 integers         | 1 integer, the difference of the two arguments                                                                                                  | Self explanatory         |
-| \*       | 2 integers         | 1 integer, the product of the two arguments                                                                                                     | Self explanatory         |
-| \/       | 2 integers         | 1 integer, the dividend of the two arguments                                                                                                    | Self explanatory         |
+| *        | 2 integers         | 1 integer, the product of the two arguments                                                                                                     | Self explanatory         |
+| /        | 2 integers         | 1 integer, the dividend of the two arguments                                                                                                    | Self explanatory         |
 | +f       | 2 floats           | 1 float, the sum of the two arguments                                                                                                           | Self explanatory         |
 | -f       | 2 floats           | 1 float, the difference of the two arguments                                                                                                    | Self explanatory         |
-| \*f      | 2 floats           | 1 float, the product of the two arguments                                                                                                       | Self explanatory         |
-| \/f      | 2 floats           | 1 float, the dividend of the two arguments                                                                                                      | Self explanatory         |
+| *f       | 2 floats           | 1 float, the product of the two arguments                                                                                                       | Self explanatory         |
+| /f       | 2 floats           | 1 float, the dividend of the two arguments                                                                                                      | Self explanatory         |
 | \vert    | 2 integers         | 1 integer, the logical or of each bit of the two arguments.                                                                                     | Self explanatory         |
 | &        | 2 integers         | 1 integer, the logical and of each bit of the two arguments.                                                                                    | Self explanatory         |
-| \^       | 2 integers         | 1 integer, the logical xor of each bit of the two arguments.                                                                                    | Self explanatory         |
+| ^        | 2 integers         | 1 integer, the logical xor of each bit of the two arguments.                                                                                    | Self explanatory         |
 | <<       | 2 integers         | 1 integer, the first argument, logical shifted to the left by the second argument.                                                              | Self explanatory         |
 | >>       | 2 integers         | 1 integer, the first argument, logical shifted to the right by the second argument.                                                             | Self explanatory         |
 | let      | a name, an integer | nothing, but it sets a variable with that name (without scoping rules), overriding any previous value.                                          | =(let foo (+ 30 30))=    |
 | array    | 1 constant N       | 1 integer, the memory address of the array of N bytes (stack allocated)                                                                         | =(let bar (array 8000))= |
 | get      | 1 integer N        | 1 integer, the value at memory address N                                                                                                        | Self explanatory         |
 | set      | 2 integers N,M     | nothing, sets the value at memory address N to M                                                                                                | Self explanatory         |
-| <        | 2 integers         | 1 integer, if the first argument is less than the second, return a 64 bit integer filled with all ones (-1 in two's complement), otherwise 0    | =(< 1 2) \=> -1=         |
-| >        | 2 integers         | 1 integer, if the first argument is greater than the second, return a 64 bit integer filled with all ones (-1 in two's complement), otherwise 0 | =(> 1 2) \=> 0=          |
+| <        | 2 integers         | 1 integer, if the first argument is less than the second, return a 64 bit integer filled with all ones (-1 in two's complement), otherwise 0    | =(< 1 2) => -1=          |
+| >        | 2 integers         | 1 integer, if the first argument is greater than the second, return a 64 bit integer filled with all ones (-1 in two's complement), otherwise 0 | =(> 1 2) => 0=           |
 | in       | 1 integer N        | 1 integer, the value from the port N                                                                                                            | Self explanatory         |
 | out      | 2 integer N,M      | nothing, send the value M to the port N                                                                                                         | Self explanatory         |
 
@@ -75,7 +75,7 @@ Shouldn't be hard to figure out what they do.
 There is 0 constant folding, which may cause problems where you may not expect it.
 This becomes a problem with the =array= operator, since it takes a constant value.
 This value cannot be inferred from setting any variables (even if that variable is "technically" constant).
-Nor, can an expression, such as =(\* 30 30)= be used in place, as this expression is evaluated at run time.
+Nor, can an expression, such as =(* 30 30)= be used in place, as this expression is evaluated at run time.
 
 ** Example
 Here is the code for CSES Weird Algorithm (Collatz conjecture), assuming stdin is 0 and stdout is 1.
