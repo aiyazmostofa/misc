@@ -1,0 +1,116 @@
+* Tinker lISP Compiler (tispc)
+This is the first compiler I ever made that **was used to help me do something**.
+Before, all the stuff I had built was really just messing around.
+However, this was made so that I don't have to write assembly for the toy architecture in our CS 429 class.
+
+It is extremely ineffecient with it's code generation output.
+The error messages are only understood by me (just throws an exception if an error happens).
+
+** How to Use
+First, compile the compiler.
+
+#+BEGIN_SRC bash
+  javac src/*.java -d out
+#+END_SRC
+
+Second, use the compiler, providing the appopriate arguments.
+
+#+BEGIN_SRC bash
+  java -cp out/ Main input.tkl output.tisp
+#+END_SRC
+
+** The Language
+This shouldn't be thought of as a lisp language, so the name of this language is misleading.
+There are no functions, so any functional programming ideals should be abandoned.
+The main feature that it shares with lisp, however, are S-expressions.
+These are extremely easy to scan and parse, so that's why I used them.
+
+Due to the design of the Tinker architecture, every single thing either takes in 64bit values, or returns 64bit values.
+Depending on the function, the values could be signed or unsigned integer, floating point.
+There is no type-safety however.
+You can take something that "returns a 64 bit integer", and pass that right into a function that "takes in a 64 bit float".
+Everything should be thought of as a string of 64 bits.
+
+The only constants allowed are unsigned, 64 bit integers.
+You want a float constant for =3.14f=?
+Use an IEEE converter.
+
+Here are some predefined operators.
+
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| Operator | Arguments          | Returns                                                                                                                                         | Example                  |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| +        | 2 integers         | 1 integer, the sum of the two arguments                                                                                                         | =(+ 1 2) \=> 3      =    |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| -        | 2 integers         | 1 integer, the difference of the two arguments                                                                                                  | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| \*       | 2 integers         | 1 integer, the product of the two arguments                                                                                                     | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| \/       | 2 integers         | 1 integer, the dividend of the two arguments                                                                                                    | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| +f       | 2 floats           | 1 float, the sum of the two arguments                                                                                                           | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| -f       | 2 floats           | 1 float, the difference of the two arguments                                                                                                    | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| \*f      | 2 floats           | 1 float, the product of the two arguments                                                                                                       | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| \/f      | 2 floats           | 1 float, the dividend of the two arguments                                                                                                      | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| \vert    | 2 integers         | 1 integer, the logical or of each bit of the two arguments.                                                                                     | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| &        | 2 integers         | 1 integer, the logical and of each bit of the two arguments.                                                                                    | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| \^       | 2 integers         | 1 integer, the logical xor of each bit of the two arguments.                                                                                    | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| <<       | 2 integers         | 1 integer, the first argument, logical shifted to the left by the second argument.                                                              | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| >>       | 2 integers         | 1 integer, the first argument, logical shifted to the right by the second argument.                                                             | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| let      | a name, an integer | nothing, but it sets a variable with that name (without scoping rules), overriding any previous value.                                          | =(let foo (+ 30 30))=    |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| array    | 1 constant N       | 1 integer, the memory address of the array of N bytes (stack allocated)                                                                         | =(let bar (array 8000))= |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| get      | 1 integer N        | 1 integer, the value at memory address N                                                                                                        | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| set      | 2 integers N,M     | nothing, sets the value at memory address N to M                                                                                                | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| <        | 2 integers         | 1 integer, if the first argument is less than the second, return a 64 bit integer filled with all ones (-1 in two's complement), otherwise 0    | =(< 1 2) \=> -1=         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| >        | 2 integers         | 1 integer, if the first argument is greater than the second, return a 64 bit integer filled with all ones (-1 in two's complement), otherwise 0 | =(> 1 2) \=> 0=          |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| in       | 1 integer N        | 1 integer, the value from the port N                                                                                                            | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+| out      | 2 integer N,M      | nothing, send the value M to the port N                                                                                                         | Self explanatory         |
++----------+--------------------+-------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+
+And here are two pieces of control flow:
+
+#+BEGIN_SRC lisp
+  (if COND_EXPRESSION
+      EXPRESSIONS_TO_EVALUATE)
+  (while COND_EXPRESSION
+    EXPRESSIONS_TO_EVALUATE)
+#+END_SRC
+
+Shouldn't be hard to figure out what they do.
+=COND_EXPRESSION= is "true" if the value is non-zero.
+
+There is 0 constant folding, which may cause problems where you may not expect it.
+This becomes a problem with the =array= operator, since it takes a constant value.
+This value cannot be inferred from setting any variables (even if that variable is "technically" constant).
+Nor, can an expression, such as =(\* 30 30)= be used in place, as this expression is evaluated at run time.
+
+** Example
+Here is the code for CSES Weird Algorithm (Collatz conjecture), assuming stdin is 0 and stdout is 1.
+#+BEGIN_SRC lisp
+  (let x (in 0))
+  (let count 0)
+  (while (> x 1)
+    (let count (+ count 1))
+    (let temp x)
+    (if (> (& temp 1) 0)
+        (let x (+ (* 3 x) 1)))
+    (if (< (& temp 1) 1)
+        (let x (/ x 2))))
+  (out 1 count)
+#+END_SRC
