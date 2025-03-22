@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Colored from "../components/Colored.astro";
+import { getCollection } from "astro:content";
+export async function getStaticPaths() {
+  const solutions = await getCollection("solutions");
+  return solutions.map((solution) => ({
+    params: { slug: solution.slug },
+    props: { solution },
+  }));
+}
+
+const { solution } = Astro.props;
+const { Content } = await solution.render();
+---
+
+<BaseLayout title={solution.data.title}>
+  <main class="flex justify-center px-4 pb-4 pt-12">
+    <article class="prose prose-slate prose-invert w-full max-w-[960px]">
+      <h1>
+        {solution.data.title}
+      </h1>
+      <p>
+        {solution.data.division} |
+        {solution.data.month}
+        {solution.data.year} |
+        <a
+          target="”_blank”"
+          href={`https://usaco.org/index.php?page=viewproblem2&cpid=${solution.slug}`}
+          >Problem Link</a
+        >
+        | <a href="/">Back to Home</a>
+      </p>
+      <Content />
+    </article>
+  </main>
+</BaseLayout>

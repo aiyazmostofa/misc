@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Colored from "../components/Colored.astro";
+const solutions: Map<
+  string,
+  Map<string, Array<CollectionEntry<"solutions">>>
+> = new Map();
+(await getCollection("solutions")).forEach((sol) => {
+  const date = sol.data.year + "|" + sol.data.month;
+  const div = sol.data.division;
+  if (!solutions.has(date)) solutions.set(date, new Map());
+  if (!solutions.get(date)!.has(div))
+    solutions.get(date)!.set(div, new Array());
+  solutions.get(date)!.get(div)!.push(sol);
+  solutions
+    .get(date)!
+    .get(div)!
+    .sort((a, b) => a.data.index - b.data.index);
+});
+const months: Map<string, number> = new Map([
+  ["January", 1],
+  ["February", 2],
+  ["US Open", 3],
+  ["December", 12],
+]);
+const divisions: Map<string, number> = new Map([
+  ["Bronze", 0],
+  ["Silver", 1],
+  ["Gold", 2],
+  ["Platinum", 3],
+]);
+---
+
+<BaseLayout title="copeforces">
+  <main class="w-full p-4">
+    <div
+      class="grid grid-cols-[repeat(auto-fill,minmax(14em,1fr))] justify-center gap-4"
+    >
+      {
+        new Array(...solutions.keys())
+          .sort((a, b) => {
+            const aArr = a.split("|");
+            const bArr = b.split("|");
+            if (aArr[0] != bArr[0]) return aArr[0].localeCompare(bArr[0]);
+            return (months.get(aArr[1]) || 0) - (months.get(bArr[1]) || 0);
+          })
+          .map((date) =>
+            new Array(...solutions.get(date)!.keys())
+              .sort((a, b) => (divisions.get(a) || 0) - (divisions.get(b) || 0))
+              .map((div) => (
+                <Colored division={div}>
+                  <h2 class="mb-4 text-xl font-bold">
+                    {date.replace("|", " ")}
+                  </h2>
+                  <ul>
+                    {solutions
+                      .get(date)!
+                      .get(div)!
+                      .sort((a, b) => a.data.index - b.data.index)
+                      .map((sol) => (
+                        <li class="mt-4">
+                          <p>
+                            <a class="underline" href={`${sol.slug}`}>
+                              {sol.data.title}
+                            </a>
+                          </p>
+                        </li>
+                      ))}
+                  </ul>
+                </Colored>
+              )),
+          )
+      }
+    </div>
+  </main>
+</BaseLayout>

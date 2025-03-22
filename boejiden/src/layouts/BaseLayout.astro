@@ -1,0 +1,40 @@
+---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/jetbrains-mono";
+const { title } = Astro.props;
+---
+
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+      integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+"
+      crossorigin="anonymous"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-full bg-slate-950">
+    <header class="flex justify-center rounded-b-lg bg-purple-500 p-4">
+      <h1 class="text-2xl text-slate-950">copeforces</h1>
+    </header>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    font-family: "Inter Variable", sans-serif;
+  }
+
+  pre {
+    font-family: "JetBrains Mono Variable", monospace;
+  }
+
+  .katex-display > .katex {
+    white-space: normal;
+  }
+</style>

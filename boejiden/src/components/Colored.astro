@@ -1,0 +1,42 @@
+---
+const { division } = Astro.props;
+---
+
+<div class="block max-w-full rounded-md bg-slate-900 p-6">
+  {
+    () => {
+      if (division == "Bronze") {
+        return (
+          <div class="prose-headings:text-orange-300 prose-p:text-orange-300 prose-a:text-orange-300">
+            <slot />
+          </div>
+        );
+      }
+
+      if (division == "Silver") {
+        return (
+          <div class="prose-headings:text-gray-300 prose-p:text-gray-300 prose-a:text-gray-300">
+            <slot />
+          </div>
+        );
+      }
+
+      if (division == "Gold") {
+        return (
+          <div class="prose-headings:text-yellow-300 prose-p:text-yellow-300 prose-a:text-yellow-300">
+            <slot />
+          </div>
+        );
+      }
+
+      if (division == "Platinum") {
+        return (
+          <div class="prose-headings:text-cyan-300 prose-p:text-cyan-300 prose-a:text-cyan-300">
+            <slot />
+          </div>
+        );
+      }
+      return <>Hello</>;
+    }
+  }
+</div>
