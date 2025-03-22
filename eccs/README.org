@@ -1,0 +1,2 @@
+* Electrochemical Cell Simulator
+I made this for extra credit in Mr. Shull's chemistry class.
