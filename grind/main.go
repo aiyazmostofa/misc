@@ -30,6 +30,9 @@ type SubmissionsJSON struct {
 	Result []struct {
 		Problem Problem
 		Verdict string
+		Author  struct {
+			ParticipantType string
+		}
 	}
 }
 
@@ -53,7 +56,9 @@ func main() {
 	contestsDone := make(map[int]bool)
 	completedProblems := make(map[string]bool)
 	for _, v := range submissions.Result {
-		contestsDone[v.Problem.ContestID] = true
+		if v.Author.ParticipantType == "PARTICIPANT" || v.Author.ParticipantType == "VIRTUAL" {
+			contestsDone[v.Problem.ContestID] = true
+		}
 		if v.Verdict == "OK" {
 			completedProblems[fmt.Sprintf("%d%s", v.Problem.ContestID, v.Problem.Index)] = true
 		}
@@ -75,7 +80,7 @@ func main() {
 		_, ok := contestsDone[v.ContestID]
 		if ok {
 			_, ok := completedProblems[fmt.Sprintf("%d%s", v.ContestID, v.Index)]
-			if v.Rating <= 2400 && !ok {
+			if v.Rating <= 2100 && !ok {
 				filteredProblems = append(filteredProblems, v)
 			}
 		}
