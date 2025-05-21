@@ -80,7 +80,7 @@ func main() {
 		_, ok := contestsDone[v.ContestID]
 		if ok {
 			_, ok := completedProblems[fmt.Sprintf("%d%s", v.ContestID, v.Index)]
-			if v.Rating <= 2100 && !ok {
+			if v.Rating <= 1900 && !ok {
 				filteredProblems = append(filteredProblems, v)
 			}
 		}
