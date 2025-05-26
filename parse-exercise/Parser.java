@@ -6,10 +6,10 @@ import java.util.ArrayList;
 <print> ::= PRINT <print> | <assign>
 <assign> ::= IDENT EQUAL <print> | <addt>
 <addt> ::= <addt> PLUS <mult> | <addt> DASH <mult> | <mult>
-<mult> ::= <mult> STAR <neg> | <mult> SLASH <neg>
+<mult> ::= <mult> STAR <neg> | <mult> SLASH <neg> | <neg>
 <neg> ::= DASH <neg> | <atom>
-<atom> ::= CONST | IDENT | <expr>
-<expr> ::= (<print>)
+<atom> ::= NUMBER | IDENT | <expr>
+<expr> ::= LPAREN <print> RPAREN
  */
 // To remove left recursion, notice that a rule of the grammar that
 // follows the following format "A -> A x B | B" will produce
@@ -57,7 +57,16 @@ public class Parser {
         public String getContent() { return content; }
         public ASTType getType() { return type; }
     }
-    public static class TokenReader {
+    public static AST parse(ArrayList<Tokenizer.Token> tokens)
+        throws Exception {
+        TokenReader tr = new TokenReader(tokens);
+        AST result = parsePrint(tr);
+        if (tr.hasPeek()) {
+            throw new Exception("unexpected extra tokens in the end");
+        }
+        return result;
+    }
+    private static class TokenReader {
         private ArrayList<Tokenizer.Token> tokens;
         private int i;
         public TokenReader(ArrayList<Tokenizer.Token> tokens) {
@@ -84,15 +93,6 @@ public class Parser {
             return i + x < tokens.size();
         }
         public int current() { return i; }
-    }
-    public static AST parse(ArrayList<Tokenizer.Token> tokens)
-        throws Exception {
-        TokenReader tr = new TokenReader(tokens);
-        AST result = parsePrint(tr);
-        if (tr.hasPeek()) {
-            throw new Exception("unexpected extra tokens in the end");
-        }
-        return result;
     }
     private static AST parseExpr(TokenReader tr) throws Exception {
         if (tr.peek().getType() != Tokenizer.TokenType.LPAREN) {
