@@ -1,2 +1,3 @@
 * boejiden
-The solutions page that contains the solutions for all my USACO Bronze, some Silver and Gold.
+The solutions page that contains the solutions for all my USACO
+Bronze, some Silver and Gold.

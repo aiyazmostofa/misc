@@ -1,4 +1,5 @@
 * Chinzilla
-A simple GUI utility that judges a Java file given an input and output file.
-Chinzilla is supposed to imitate the judging of the UIL Computer Science competition.
-This is merely a personal project for the Cypress Ranch Computer Science team.
+A simple GUI utility that judges a Java file given an input and output
+file. Chinzilla is supposed to imitate the judging of the UIL
+Computer Science competition. This is merely a personal project for
+the Cypress Ranch Computer Science team.

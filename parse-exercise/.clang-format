@@ -1,0 +1,5 @@
+InsertBraces: true
+IndentWidth: 4
+MaxEmptyLinesToKeep: 0
+ColumnLimit: 70
+ReflowComments: false

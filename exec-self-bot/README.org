@@ -3,21 +3,25 @@ A Discord-self bot that executes raw Python code.
 
 ** Installation
 After installing docker, here are the steps:
+
 #+BEGIN_SRC bash
 git clone https://github.com/aiyazmostofa/exec-self-bot.git
 cd exec-self-bot
 echo "TOKEN" >> token
 docker compose up -d
 #+END_SRC
-Replace =TOKEN= with your Discord web token.
-Then press =Ctrl + B= then =D= to release from tmux.
+
+Replace =TOKEN= with your Discord web token. Then press =Ctrl + B=
+then =D= to release from tmux.
 
 ** Usage
 Example message:
+
 #+BEGIN_SRC
 $py
 print(3+2)
 print("hello world")
 $py
 #+END_SRC
+
 A message must start with =$py\n= and end with =\n$py=.

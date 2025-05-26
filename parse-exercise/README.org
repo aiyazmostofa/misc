@@ -1,0 +1,3 @@
+* Parse Exercise
+A simple 4 function terminal calculator, a relic of my time learning
+recursive descent parsing.
