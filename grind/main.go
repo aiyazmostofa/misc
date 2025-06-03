@@ -55,12 +55,16 @@ func main() {
 	}
 	contestsDone := make(map[int]bool)
 	completedProblems := make(map[string]bool)
+	maxRating := 0
 	for _, v := range submissions.Result {
-		if v.Author.ParticipantType == "PARTICIPANT" || v.Author.ParticipantType == "VIRTUAL" {
+		if v.Author.ParticipantType == "CONTESTANT" || v.Author.ParticipantType == "VIRTUAL" {
 			contestsDone[v.Problem.ContestID] = true
 		}
 		if v.Verdict == "OK" {
 			completedProblems[fmt.Sprintf("%d%s", v.Problem.ContestID, v.Problem.Index)] = true
+			if contestsDone[v.Problem.ContestID] {
+				maxRating = max(maxRating, v.Problem.Rating)
+			}
 		}
 	}
 	url = "https://codeforces.com/api/problemset.problems"
@@ -80,7 +84,7 @@ func main() {
 		_, ok := contestsDone[v.ContestID]
 		if ok {
 			_, ok := completedProblems[fmt.Sprintf("%d%s", v.ContestID, v.Index)]
-			if v.Rating <= 1900 && !ok {
+			if v.Rating <= maxRating+100 && !ok {
 				filteredProblems = append(filteredProblems, v)
 			}
 		}
