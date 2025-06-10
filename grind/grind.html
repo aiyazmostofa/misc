@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <title>Codeforces Upsolve Thingy</title>
+  </head>
+  <body>
+    <header>
+      <h1>Codeforces Upsolve Thingy</h1>
+    </header>
+    <form action="javascript:void(0);" onSubmit="onclickHandler()">
+      <p>
+        <label>Username</label>
+        <input type="text" id="username-input" />
+      </p>
+      <button type="button" onclick="onclickHandler()">Compute!</button>
+    </form>
+    <p id="status"></p>
+    <div id="table-container"></div>
+  </body>
+  <script>
+    async function get(url) {
+      let response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      return await response.json();
+    }
+    async function computeProblems(username) {
+      let submissions;
+      try {
+        submissions = await get(
+          `https://codeforces.com/api/user.status?handle=${username}`,
+        );
+      } catch (e) {
+        throw new Error(`Couldn't fetch user submissions for '${username}'.`);
+      }
+      let contestsDone = new Set();
+      let completedProblems = new Set();
+      let maxRating = 700;
+      submissions.result.forEach((v) => {
+        if (
+          v.author.participantType == "CONTESTANT" ||
+          v.author.participantType == "VIRTUAL"
+        ) {
+          contestsDone.add(v.problem.contestId);
+        }
+        if (v.verdict == "OK") {
+          completedProblems.add(`${v.problem.contestId}${v.problem.index}`);
+          if (
+            contestsDone.has(v.problem.contestId) &&
+            isFinite(v.problem.rating)
+          ) {
+            maxRating = Math.max(maxRating, v.problem.rating);
+          }
+        }
+      });
+      let problems;
+      try {
+        problems = await get("https://codeforces.com/api/problemset.problems");
+      } catch (e) {
+        throw new Error(`Couldn't fetch Codeforces problems.`);
+      }
+      filteredProblems = [];
+      problems.result.problems.forEach((v) => {
+        if (contestsDone.has(v.contestId)) {
+          if (
+            v.rating <= maxRating + 100 &&
+            !completedProblems.has(`${v.contestId}${v.index}`)
+          ) {
+            filteredProblems.push(v);
+          }
+        }
+      });
+      filteredProblems.sort((a, b) => {
+        if (a.rating != b.rating) {
+          return a.rating - b.rating;
+        }
+        if (a.contestId != b.contestId) {
+          return a.contestId - b.contestId;
+        }
+        return a.index - b.index;
+      });
+      return filteredProblems;
+    }
+    function setTable(problems) {
+      let table = document.createElement("table");
+      let tableContainer = document.getElementById("table-container");
+      tableContainer.innerHTML = "";
+      tableContainer.appendChild(table);
+      problems.forEach((problem) => {
+        let row = table.insertRow();
+        let name = row.insertCell();
+        let link = document.createElement("a");
+        link.setAttribute(
+          "href",
+          `https://codeforces.com/contest/${problem.contestId}/problem/${problem.index}`,
+        );
+        link.innerText = problem.name;
+        name.appendChild(link);
+        let rating = row.insertCell();
+        rating.appendChild(document.createTextNode(`${problem.rating}`));
+      });
+    }
+    function onclickHandler() {
+      let usernameInput = document.getElementById("username-input");
+      let status = document.getElementById("status");
+      status.innerText = "Fetching Codeforces API and computing problems.";
+      computeProblems(usernameInput.value)
+        .then((problems) => {
+          localStorage.setItem("username", usernameInput.value);
+          localStorage.setItem("problems", JSON.stringify(problems));
+          status.innerText = "";
+          setTable(problems);
+        })
+        .catch((err) => (status.innerText = err));
+    }
+    function init() {
+      let usernameInput = document.getElementById("username-input");
+      usernameInput.value = localStorage.getItem("username");
+      setTable(JSON.parse(localStorage.getItem("problems")));
+    }
+    init();
+  </script>
+</html>
