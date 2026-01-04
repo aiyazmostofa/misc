@@ -1,0 +1,6 @@
+[submodule "mandelbrot-viewer/glad"]
+	path = mandelbrot-viewer/glad
+	url = https://github.com/Dav1dde/glad.git
+[submodule "mandelbrot-viewer/glfw"]
+	path = mandelbrot-viewer/glfw
+	url = https://github.com/glfw/glfw.git
