@@ -1,0 +1,17 @@
+* Mandelbrot Viewer
+An OpenGL program that can navigate the Mandelbrot fractal.
+
+** Build
+*** Prerequisites
+Make sure you have CMake, GNU Make, and either G++ for Linux or MinGW-w64 for Windows.
+If you're on Windows, you will have to run the commands below with a bash emulator (Git Bash works).
+
+To build this project, clone this repository and run these commands in the project directory.
+#+BEGIN_SRC bash
+  git submodule update --init
+  mkdir build
+  cd build
+  cmake ../
+  make
+  ./mandelbrot-viewer
+#+END_SRC
