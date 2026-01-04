@@ -1,0 +1,27 @@
+* Connect Four AI
+My Connect Four AI that utilizes a Minimax decision tree.
+
+[[screenshot.png]]
+
+** Description
+*** Backstory
+This project originated from my Computer Science 2 class, where we were tasked to make a Connect Four AI.
+I researched about the Minimax decision tree and Alpha-beta pruning.
+I spent hours and hours on this project, fine tuning every little aspect that I could at the time.
+After submitting the work to my teacher, not only did it beat the AI's he gave for student grading, but it also beat his own Minimax AI 10/10 times.
+
+I posted my code onto my old account and just left it there for several months.
+
+Recently, I decided that I wanted to show my AI to the world.
+Since the original code was in Java and there was no "quick and easy" way to run and display the code, I decided to make a website.
+
+*** The Website
+The website is a standard Node.js + Express server that serves an HTML file to the user.
+The entire game logic is held in the HTML + CSS + JS website.
+The server also accepts a POST request of the current board position.
+It verifies the validity of the position before sending the board state to the GC Function with the AI.
+
+*** The AI
+The AI is written in Java and is deployed as a Google Cloud Function.
+It utilizies a Minimax decision tree with alpha beta pruning.
+The tree has a maximum depth of 7.
