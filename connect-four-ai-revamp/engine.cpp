@@ -657,14 +657,13 @@ class Engine {
 
 // https://developer.mozilla.org/en-US/docs/WebAssembly/Guides/C_to_Wasm#calling_a_custom_function_defined_in_c
 #include <emscripten/emscripten.h>
-
-#ifdef __cplusplus
-#define EXTERN extern "C"
-#else
-#define EXTERN
-#endif
-
-EXTERN EMSCRIPTEN_KEEPALIVE int compute(char matrix[ROWS][COLUMNS]) {
+extern "C" EMSCRIPTEN_KEEPALIVE int compute(const char *board) {
+    char matrix[ROWS][COLUMNS];
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 7; j++) {
+            matrix[i][j] = board[i * 7 + j];
+        }
+    }
     Engine e;
     return e.compute(matrix);
 }
