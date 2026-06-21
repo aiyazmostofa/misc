@@ -2,5 +2,9 @@
 A collection of "dead" projects. Here for convenience/archival
 purposes. Start exploring!
 
+** AI Disclaimer
+Unless otherwise stated (usually at the top of a file), all code in this codebase is NOT AI generated.
+I wrote everything myself.
+
 ** License
 [[file:LICENSE][GNU General Public License Version 3]]
