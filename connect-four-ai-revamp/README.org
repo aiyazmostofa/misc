@@ -1,0 +1,8 @@
+* Connect Four AI (Revamped)
+[[https://aiyazmostofa.github.io/misc/c4ai][Link]]
+
+A version of [[file:../connect-four-ai/README.org][this repository]] that doesn't rely on a backend.
+Instead, I did a quick rewrite of the Java code into C++ (very easy since 90% of the code is shared).
+Then, I compiled the C++ as a WASM module.
+
+Most of the code in this codebase should be shared with the original.
