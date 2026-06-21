@@ -1,4 +1,5 @@
 /.direnv/
 /.cache/
-/bin/
 compile_commands.json
+engine.mjs
+engine.wasm

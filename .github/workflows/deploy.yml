@@ -49,11 +49,12 @@ jobs:
           mkdir -p staging/c4ai
           
           # Copy files into the /c4ai subfolder
-          cp -r connect-four-ai-revamp/bin staging/c4ai/
           cp connect-four-ai-revamp/index.html staging/c4ai/
           cp connect-four-ai-revamp/app.js staging/c4ai/
           cp connect-four-ai-revamp/index.js staging/c4ai/
           cp connect-four-ai-revamp/main.css staging/c4ai/
+          cp connect-four-ai-revamp/engine.mjs staging/c4ai/
+          cp connect-four-ai-revamp/engine.wasm staging/c4ai/
 
           # Create an automatic root redirect file to bounce users to /c4ai/
           echo '<meta http-equiv="refresh" content="0; URL=./c4ai/">' > staging/index.html

@@ -2,7 +2,7 @@
 // This is no longer needed.
 // However, we keep it because it minimizes change.
 
-import createModule from "./bin/engine.mjs";
+import createModule from "./engine.mjs";
 
 function verify(matrix) {
     for (let i = 0; i < 7; i++) {
