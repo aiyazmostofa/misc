@@ -66,19 +66,27 @@ function setNewGame() {
     lastPlayedRow = 0;
 }
 
-function updateMousePosition(e) {
+function getMousePosition(e) {
     let rect = canvas.getBoundingClientRect();
-    mouseX = e.x - rect.x;
-    mouseY = e.y - rect.y;
+    let relativeX = e.clientX - rect.left;
+    let relativeY = e.clientY - rect.top;
+    let scaleFactor = canvas.width / rect.width;
+    return { x: relativeX * scaleFactor, y: relativeY * scaleFactor };
+}
+
+function updateMousePosition(e) {
+    let position = getMousePosition(e);
+    mouseX = position.x;
+    mouseY = position.y;
     render();
 }
 
 function registerMouseClick(e) {
     if (nonActive) return;
     if ((currentYellow && userPlayer === "R") || (!currentYellow && userPlayer === "Y")) return;
-    let rect = canvas.getBoundingClientRect();
-    let x = e.x - rect.x;
-    let y = e.y - rect.y;
+    let position = getMousePosition(e);
+    let x = position.x;
+    let y = position.y;
     for (let i = 0; i < COLUMNS; i++) {
         if (x >= i * 100 + 10 && x < i * 100 + 110) {
             for (let j = 0; j < ROWS; j++) {
